@@ -4,7 +4,7 @@
 
 ## 谷粒学院后台接口请参考：https://github.com/wenMN1994/GrainOnlineEducation_Parent
 ## 谷粒学院后台管理UI请参考：https://github.com/wenMN1994/GrainOnlineEducation_UI
-## 谷粒学院前端UI请参考：
+## 谷粒学院前端UI请参考：https://github.com/wenMN1994/GrainOnlineEducation_Web.git
 
 ## Build Setup
 
