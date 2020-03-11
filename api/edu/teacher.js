@@ -6,5 +6,11 @@ export default {
       url: `${api_name}/${page}/${limit}`,
       method: 'get'
     })
+  },
+  getById(teacherId) {
+    return request({
+      url: `${api_name}/${teacherId}`,
+      method: 'get'
+    })
   }
 }
