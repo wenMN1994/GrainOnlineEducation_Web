@@ -39,7 +39,7 @@
               </span>
             </section>
             <section class="c-attr-mt">
-              <a href="#" title="立即观看" class="comm-btn c-btn-3">立即观看</a>
+              <a href="#playVideo" title="立即观看" class="comm-btn c-btn-3">立即观看</a>
             </section>
           </section>
         </aside>
@@ -106,7 +106,7 @@
                   <section class="mt20">
                     <div class="lh-menu-wrap">
                       <menu id="lh-menu" class="lh-menu mt10 mr10">
-                        <ul>
+                        <ul id="playVideo">
                           <!-- 课程章节目录 -->
                           <li v-for="chapter in chapterList" :key="chapter.id" class="lh-menu-stair">
                             <a :title="chapter.title" href="javascript: void(0)" class="current-1">
@@ -114,8 +114,11 @@
                             </a>
                             <ol class="lh-menu-ol" style="display: block;">
                               <li v-for="video in chapter.children" :key="video.id" class="lh-menu-second ml30">
-                                <a href="#" title>
-                                  <span v-if="video.free === true" class="fr">
+                                <a
+                                  :href="'/player/'+video.videoSourceId"
+                                  :title="video.title"
+                                  target="_blank">
+                                  <span v-if="video.isFree === true" class="fr">
                                     <i class="free-icon vam mr10">免费试听</i>
                                   </span>
                                   <em class="lh-menu-i-2 icon16 mr5">&nbsp;</em>{{ video.title }}
