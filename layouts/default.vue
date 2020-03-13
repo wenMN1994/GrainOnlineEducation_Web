@@ -28,36 +28,30 @@
           </ul>
           <!-- / nav -->
           <ul class="h-r-login">
-            <li id="no-login">
-              <a href="/sing_in" title="登录">
+            <li v-if="!loginInfo.id" id="no-login">
+              <a href="/login" title="登录">
                 <em class="icon18 login-icon">&nbsp;</em>
                 <span class="vam ml5">登录</span>
               </a>
               |
-              <a href="/sign_up" title="注册">
+              <a href="/register" title="注册">
                 <span class="vam ml5">注册</span>
               </a>
             </li>
-            <li id="is-login-one" class="mr10 undis">
-              <a id="headerMsgCountId" href="#" title="消息">
-                <em class="icon18 news-icon">&nbsp;</em>
-              </a>
-              <q class="red-point" style="display: none">&nbsp;</q>
-            </li>
-            <li id="is-login-two" class="h-r-user undis">
+            <li v-if="loginInfo.id" id="is-login-two" class="h-r-user">
               <a href="#" title>
                 <img
-                  src="~/assets/img/avatar-boy.gif"
+                  :src="loginInfo.avatar"
                   width="30"
                   height="30"
                   class="vam picImg"
                   alt
                 >
-                <span id="userName" class="vam disIb"/>
+                <span id="userName" class="vam disIb" style="max-width:100%">{{ loginInfo.nickname }}</span>
               </a>
-              <a href="javascript:void(0)" title="退出" onclick="exit();" class="ml5">退出</a>
+              <a href="/" title="退出" class="ml5">退出</a>
             </li>
-            <!-- /未登录显示第1 li；登录后显示第2，3 li -->
+            <!-- /未登录显示第1 li；登录后显示第2 li -->
           </ul>
           <aside class="h-r-search">
             <form action="#" method="post">
@@ -134,6 +128,36 @@ import '~/assets/css/reset.css'
 import '~/assets/css/theme.css'
 import '~/assets/css/global.css'
 import '~/assets/css/web.css'
+import member from '@/api/member/member'
 
-export default {}
+export default {
+
+  data() {
+    return {
+      token: '',
+      loginInfo: {}
+    }
+  },
+
+  created() {
+    console.log(this.$route.query.token)
+    this.token = this.$route.query.token
+    if (this.token) {
+      this.showInfo(this.token)
+    }
+  },
+
+  methods: {
+    showInfo() {
+      member.getInfoByToken(this.token).then(response => {
+        const loginInfo = response.data.data.loginInfo
+        if (loginInfo) { // token未过期
+          this.loginInfo = response.data.data.loginInfo
+        } else {
+          this.$router.push({ path: '/' })
+        }
+      })
+    }
+  }
+}
 </script>
